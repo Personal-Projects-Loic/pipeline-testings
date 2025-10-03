@@ -1,0 +1,46 @@
+name: loic-CI
+
+on:
+  push:
+    branches:
+      - loic-branch
+
+jobs:
+  build:
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ./ # test parce que sinon je crois qu'il ne trouve pas le test dans src
+
+    steps:
+      # visiblement nécéssaire, a voir -> oui nécéssaire
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: le nom de la branche
+        run: echo "Branche = $GITHUB_REF_NAME"
+
+        # installation de node necessaire pour npm
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+        # installation des lib de test
+      - name: installer les dépendances
+        run: npm i
+
+        # il trouve pas les tests le coquin
+      - name: tester parce que vasy la
+        run: pwd && ls -lah && ls -lah src/
+
+      - name: lancer tests
+        run: npm test
+
+      - name: tests ok
+        if: success() # stylé
+        run: echo "Tests OK"
+
+      - name: tests ko
+        if: failure() # pas stylé
+        run: echo "Tests KO"
