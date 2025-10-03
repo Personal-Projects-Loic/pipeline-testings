@@ -3,7 +3,7 @@ name: loic-CI
 on:
   push:
     branches:
-      - loic-branch
+      - main
 
 jobs:
   build:
