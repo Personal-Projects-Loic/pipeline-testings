@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./ # test parce que sinon je crois qu'il ne trouve pas le test dans src
